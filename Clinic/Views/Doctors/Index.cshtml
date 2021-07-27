@@ -1,0 +1,133 @@
+﻿@model Clinic.Paging.PagingList<Clinic.Models.Doctor>
+
+
+        @{
+            ViewData["Title"] = "Index";
+        }
+
+        <h1>Doctors </h1>
+        <a asp-action="Create">Create New</a>
+
+        @using (Html.BeginForm())
+        {
+            <p>
+                Find by Doctor Name: @Html.TextBox("SearchString")
+                <input type="submit" value="Search" />
+            </p>
+        }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.ActionLink("Doctor", "Index", new { sortField = "DoctorName", currentSortField = ViewBag.SortField, currentSortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Address", "Index", new { sortField = "Address", currentSortField = ViewBag.SortField, currentSortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Notes", "Index", new { sortField = "Notes", currentSortField = ViewBag.SortField, currentSortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("PhoneNumber", "Index", new { sortField = "PhoneNumber", currentSortField = ViewBag.SortField, currentSortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Email", "Index", new { sortField = "Email", currentSortField = ViewBag.SortField, currentSortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("MonthlySalary", "Index", new { sortField = "MonthlySalary", currentSortField = ViewBag.SortField, currentSortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("IBAN", "Index", new { sortField = "IBAN", currentSortField = ViewBag.SortField, currentSortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Specialization", "Index", new { sortField = "Specialization", currentSortField = ViewBag.SortField, currentSortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Country", "Index", new { sortField = "Country", currentSortField = ViewBag.SortField, currentSortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="3" style="color:red"> </td>
+                        No Match :(
+                    </tr>
+
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DoctorName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Notes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MonthlySalary)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IBAN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Specialization.SpecializationName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Country)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+                    }
+
+                }
+
+
+            </tbody>
+
+
+        </table>
+ 
+  
+@{  
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";  
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";  
+    var totalPageNo = Model.TotalPageNo;  
+    var currentPageNo = Model.PageIndex;  
+}  
+  
+<a asp-action="Index"  
+   asp-route-sortOrder="@ViewData["CurrentSort"]"  
+   asp-route-pageNo="@(Model.PageIndex - 1)"  
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"  
+   class="btn btn-default @prevDisabled">  
+    Previous  
+</a>  
+<a asp-action="Index"  
+   asp-route-sortOrder="@ViewData["CurrentSort"]"  
+   asp-route-pageNo="@(Model.PageIndex + 1)"  
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"  
+   class="btn btn-default @nextDisabled">  
+    Next  
+</a>  
+<span>  
+    Page No : @currentPageNo of @totalPageNo  
+</span>  

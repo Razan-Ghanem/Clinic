@@ -1,0 +1,59 @@
+﻿@model Clinic.Paging.PagingList<Clinic.Models.Doctor>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewData["Title"] = "Doctor List";
+}
+<thead>
+    <tr>
+        <th style="width:10%;">
+            @Html.ActionLink("Code", "Index", new { sortField = "EmployeeCode", currentSortField = ViewBag.SortField, currentSortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th style="width:20%;">
+            @Html.ActionLink("Employee Name", "Index", new { sortField = "EmployeeName", currentSortField = ViewBag.SortField, currentSortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th style="width:10%;">
+            @Html.ActionLink("Join Date", "Index", new { sortField = "JoinDate", currentSortField = ViewBag.SortField, currentSortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th style="width:15%;">
+            @Html.ActionLink("Department", "Index", new { sortField = "DepartmentName", currentSortField = ViewBag.SortField, currentSortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th style="width:15%;">
+            @Html.ActionLink("Designation", "Index", new { sortField = "DesignationName", currentSortField = ViewBag.SortField, currentSortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th style="width:10%;">
+            @Html.ActionLink("Salary", "Index", new { sortField = "Salary", currentSortField = ViewBag.SortField, currentSortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th style="width:10%;">
+            @Html.ActionLink("City", "Index", new { sortField = "City", currentSortField = ViewBag.SortField, currentSortOrder = ViewBag.SortOrder, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th style="width:10%;"></th>
+    </tr>
+</thead>
+<br />
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    var totalPageNo = Model.TotalPageNo;
+    var currentPageNo = Model.PageIndex;
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNo="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNo="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
+<span>
+    Page No : @currentPageNo of @totalPageNo
+</span>  
